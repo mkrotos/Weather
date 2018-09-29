@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class MeteoData {
+public class MeteoTrafficTrafficData implements IMeteoTrafficData {
 
     private static final String METEO_RZESZOW_API_URL = "http://traffic.erzeszow.pl/device/meteo/data/1/1";
     private static final String UTF_8 = "UTF-8";

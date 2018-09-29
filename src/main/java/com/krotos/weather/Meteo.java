@@ -7,11 +7,11 @@ public class Meteo {
     }
 
     private static void meteo(){
-        MeteoDataRefactor meteoDataRefactor=new MeteoDataRefactor();
-        System.out.println(meteoDataRefactor.getTemp());
-        System.out.println(meteoDataRefactor.getOpady());
-        System.out.println(meteoDataRefactor.getWilgotnosc());
-        System.out.println(meteoDataRefactor.getPredWiatru());
+        IMeteoDataService IMeteoDataService =MeteoTrafficDataService.createWith(new MeteoTrafficTrafficData());
+        System.out.println(IMeteoDataService.getTemp());
+        System.out.println(IMeteoDataService.getRain());
+        System.out.println(IMeteoDataService.getHumidity());
+        System.out.println(IMeteoDataService.getWindVelocity());
 
 
     }
