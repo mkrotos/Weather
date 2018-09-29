@@ -1,8 +1,6 @@
 package com.krotos.weather;
 
 import org.junit.BeforeClass;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -10,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 public class MeteoTrafficDataServiceTest {
 
+    //do osobnego pliku
     public static final String METEO_DATA_EXAMPLE = "\n" +
             "                    <div class=\"map-dialog-box\" state=\"\" zoom_min=\"15\">\n" +
             "                        <div class=\"txt\">\n" +
