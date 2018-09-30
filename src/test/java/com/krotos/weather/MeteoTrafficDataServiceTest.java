@@ -1,6 +1,7 @@
 package com.krotos.weather;
 
 import com.google.common.io.Resources;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -18,11 +19,10 @@ import static org.mockito.Mockito.when;
 
 public class MeteoTrafficDataServiceTest {
 
-
-    private static MeteoTrafficDataService meteoTrafficDataService;
+    private MeteoTrafficDataService meteoTrafficDataService;
     private final double DELTA = 0.0001;
 
-    private static IMeteoTrafficData createMeteoDataMock() {
+    private IMeteoTrafficData createMeteoDataMock() {
         IMeteoTrafficData dataMock = mock(IMeteoTrafficData.class);
 
         String rawData = readRawDataFile();
@@ -31,7 +31,7 @@ public class MeteoTrafficDataServiceTest {
         return dataMock;
     }
 
-    private static String readRawDataFile(){
+    private String readRawDataFile() {
         URL url = Resources.getResource("RawDataExample");
         String rawData = null;
         try {
@@ -43,8 +43,8 @@ public class MeteoTrafficDataServiceTest {
         return rawData;
     }
 
-    @BeforeClass
-    public static void beforeAll() {
+    @Before
+    public void beforeEach() {
         meteoTrafficDataService = MeteoTrafficDataService.createWith(createMeteoDataMock());
     }
 
@@ -79,7 +79,6 @@ public class MeteoTrafficDataServiceTest {
         assertEquals(expectedRain, receivedRain);
     }
 
-
     @Test
     public void returnsProperWindVelocity() {
         //given
@@ -88,6 +87,12 @@ public class MeteoTrafficDataServiceTest {
         double receivedWindVelocity = meteoTrafficDataService.getWindVelocity();
         //then
         assertEquals(expectedWindVelocity, receivedWindVelocity, DELTA);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void throwExceptionWhenNoDataIsProvided() {
+        //given
+        meteoTrafficDataService = MeteoTrafficDataService.createWith(null);
     }
 
 }

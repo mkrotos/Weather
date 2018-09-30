@@ -7,7 +7,7 @@ public class Meteo {
     }
 
     private static void meteo(){
-        MeteoTrafficDataService meteoDataService =MeteoTrafficDataService.createWith(new MeteoTrafficTrafficData());
+        MeteoTrafficDataService meteoDataService =MeteoTrafficDataService.createWith(new MeteoTrafficData());
         System.out.println(meteoDataService.getTemp());
         System.out.println(meteoDataService.getRain());
         System.out.println(meteoDataService.getHumidity());

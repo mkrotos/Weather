@@ -18,7 +18,14 @@ public class MeteoTrafficDataService implements IMeteoDataService {
 
     private MeteoTrafficDataService(IMeteoTrafficData meteoData) {
         this.meteoData = meteoData;
+        checkMeteoData(meteoData);
         response=this.meteoData.getData();
+    }
+
+    private void checkMeteoData(IMeteoTrafficData meteoData) {
+        if(meteoData == null|| StringUtils.isBlank(meteoData.getData())){
+            throw new IllegalArgumentException("Wrong raw data");
+        }
     }
 
     public static MeteoTrafficDataService createWith(IMeteoTrafficData meteoData) {
