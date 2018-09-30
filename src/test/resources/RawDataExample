@@ -1,0 +1,38 @@
+
+        <table border="0">
+            <tr>
+                <td valign="bottom">
+                    <img class="zoomable ico" title="Meteo"
+                         src="/assets/img/ico-meteo.png" style="width:20px;"
+                         zoom_min="1" zoom_max="14"/>
+                    <img class="zoomable ico" title="Meteo" src="/assets/img/ico-meteo.png"
+                    style="" zoom_min="15" zoom_max="28" />
+                </td>
+                <td>
+                    <div class="map-dialog-box" state="" zoom_min="15">
+                        <img class="map-dialog-close" onclick="closeDialogDevice();"
+                             src="/assets/img/map-dialog-close.png"
+                             title="Zamknij" alt="Zamknij"/>
+
+                        <div class="txt">
+                            Temperatura powietrza: <b>6.9 &deg;C</b><br>
+                            <!--Temperatura przy jezdni: <b>11.5 &deg;C</b><br>
+                            Punkt rosy: <b>1.7 &deg;C</b><br>
+                            Temperatura zamarzania: <b>-0.0 &deg;C</b><br>-->
+                            Wilgotność: <b>69.0 %</b><br>
+                            Temperatura pasa: <b>14.6 &deg;C</b><br>
+                            Wilgotność pasa: <b>0.0 %</b><br>
+                            Widoczność: <b>2000.0 m</b><br>
+                            Rodzaj opadu: <b>brak opad&oacute;w</b><br>
+                            <!--Wartość opadu: <b>0.0 mm</b><br>
+                            Sól: <b>0.0 g/l</b><br>-->
+                            Stan pasa: <b>sucho</b><br>
+                            Kierunek wiatru: <b>95.0 &deg; SE</b><br>
+                            Prędkość wiatru: <b>0.6 m/s</b><br>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+

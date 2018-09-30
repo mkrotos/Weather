@@ -14,13 +14,14 @@ public class MeteoTrafficDataService implements IMeteoDataService {
     private static final String WIND_VELOCITY_CLOSE = " m/s</b><br>";
 
     private IMeteoTrafficData meteoData;
-    private String response = meteoData.getData();
+    private String response;
 
-    private MeteoTrafficDataService(IMeteoTrafficData meteoData){
-        this.meteoData=meteoData;
+    private MeteoTrafficDataService(IMeteoTrafficData meteoData) {
+        this.meteoData = meteoData;
+        response=this.meteoData.getData();
     }
 
-    public static IMeteoDataService createWith(IMeteoTrafficData meteoData){
+    public static IMeteoDataService createWith(IMeteoTrafficData meteoData) {
         return new MeteoTrafficDataService(meteoData);
     }
 
