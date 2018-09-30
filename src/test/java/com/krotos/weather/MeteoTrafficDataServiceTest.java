@@ -15,10 +15,10 @@ import static org.mockito.Mockito.when;
 public class MeteoTrafficDataServiceTest {
 
 
-    public static IMeteoDataService meteoTrafficDataService;
-    public final double DELTA = 0.0001;
+     private static MeteoTrafficDataService meteoTrafficDataService;
+     private final double DELTA = 0.0001;
 
-    public static IMeteoTrafficData createMeteoDataMock() {
+     private static IMeteoTrafficData createMeteoDataMock() {
         IMeteoTrafficData dataMock = mock(IMeteoTrafficData.class);
 
         String rawData = readRawDataFileAdapter();
@@ -43,7 +43,7 @@ public class MeteoTrafficDataServiceTest {
         BufferedReader reader;
         reader = new BufferedReader(new FileReader(rawDataFilePath));
 
-        String lines = null;
+        String lines;
         String rawData;
         StringBuilder stringBuilder = new StringBuilder();
         String ls = System.getProperty("line.separator");
@@ -74,6 +74,44 @@ public class MeteoTrafficDataServiceTest {
 
         //then
         assertEquals(expectedTemp, receivedTemp, DELTA);
+    }
+
+    @Test
+    public void returnsProperHumidity(){
+        //given
+        double expectedHumidity=69;
+        //when
+        double  receivedHumidity=meteoTrafficDataService.getHumidity();
+        //then
+        assertEquals(expectedHumidity,receivedHumidity,DELTA);
+    }
+    @Test
+    public void returnsProperRain(){
+        //given
+        String expectedRain="brak opad&oacute;w";
+        //when
+        String  receivedRain=meteoTrafficDataService.getRain();
+        //then
+        assertEquals(expectedRain,receivedRain);
+    }
+    @Test
+    public void returnsProperFixedRain(){
+        //given
+        String expectedFixedRain="brak opadów";
+        //when
+        String receivedFixedRain=meteoTrafficDataService.getFixedRain();
+        //then
+        assertEquals(expectedFixedRain,receivedFixedRain);
+    }
+
+    @Test
+    public void returnsProperWindVelocity(){
+        //given
+        double expectedWindVelocity=0.6;
+        //when
+        double receivedWindVelocity=meteoTrafficDataService.getWindVelocity();
+        //then
+        assertEquals(expectedWindVelocity,receivedWindVelocity,DELTA);
     }
 
 }

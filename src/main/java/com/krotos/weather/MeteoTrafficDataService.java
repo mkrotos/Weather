@@ -21,7 +21,7 @@ public class MeteoTrafficDataService implements IMeteoDataService {
         response=this.meteoData.getData();
     }
 
-    public static IMeteoDataService createWith(IMeteoTrafficData meteoData) {
+    public static MeteoTrafficDataService createWith(IMeteoTrafficData meteoData) {
         return new MeteoTrafficDataService(meteoData);
     }
 
@@ -40,6 +40,11 @@ public class MeteoTrafficDataService implements IMeteoDataService {
 
     public String getRain() {
         return getStringFromResponseBetween(RAIN_OPEN, RAIN_CLOSE);
+    }
+
+    public String getFixedRain(){
+        String rain=getRain();
+        return rain.replace("&oacute;","ó");
     }
 
     public Double getWindVelocity() {
