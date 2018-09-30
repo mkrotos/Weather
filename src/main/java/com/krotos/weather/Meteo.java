@@ -7,7 +7,8 @@ public class Meteo {
     }
 
     private static void meteo(){
-        IMeteoDataService meteoDataService =MeteoTrafficDataService.createWith(new MeteoTrafficData());
+        IMeteoDataService meteoDataService =MeteoTrafficDataService
+                .createWith(new MeteoTrafficData("http://traffic.erzeszow.pl/device/meteo/data/1/1"));
         System.out.println(meteoDataService.getTemp());
         System.out.println(meteoDataService.getRain());
         System.out.println(meteoDataService.getHumidity());

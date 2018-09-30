@@ -1,5 +1,7 @@
 package com.krotos.weather;
 
+import java.util.Optional;
+
 interface IMeteoTrafficData {
-    String getData();
+    Optional<String> getData();
 }

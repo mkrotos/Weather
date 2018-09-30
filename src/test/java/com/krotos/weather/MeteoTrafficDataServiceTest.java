@@ -9,6 +9,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -20,6 +21,7 @@ public class MeteoTrafficDataServiceTest {
 
     private static final String RAW_DATA_EXAMPLE_PATH = "RawDataExample";
     private static final String PROBLEM_WITH_EXAMPLE_FILE_MESSAGE = "Problem with example file";
+    private static final String SOME_WRONG_DATA = "Some wrong data";
     private MeteoTrafficDataService meteoTrafficDataService;
     private final double DELTA = 0.0001;
 
@@ -28,7 +30,7 @@ public class MeteoTrafficDataServiceTest {
 
         String rawData = readRawDataFile();
 
-        when(dataMock.getData()).thenReturn(rawData);
+        when(dataMock.getData()).thenReturn(Optional.of(rawData));
         return dataMock;
     }
 
@@ -45,7 +47,7 @@ public class MeteoTrafficDataServiceTest {
     }
 
     @Before
-    public void beforeEach() {
+    public void createMeteoServiceBeforeEach() {
         meteoTrafficDataService = MeteoTrafficDataService.createWith(createMeteoDataMock());
     }
 
@@ -129,12 +131,7 @@ public class MeteoTrafficDataServiceTest {
     }
 
     private void createMeteoServiceWithWrongData() {
-        meteoTrafficDataService=MeteoTrafficDataService.createWith(new IMeteoTrafficData() {
-            @Override
-            public String getData() {
-                return "Some wrong data";
-            }
-        });
+        meteoTrafficDataService=MeteoTrafficDataService.createWith(() -> Optional.of(SOME_WRONG_DATA));
     }
 
 }

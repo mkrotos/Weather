@@ -13,18 +13,18 @@ public class MeteoTrafficDataService implements IMeteoDataService {
     private static final String WIND_VELOCITY_OPEN = "Prędkość wiatru: <b>";
     private static final String WIND_VELOCITY_CLOSE = " m/s</b><br>";
     private static final String WRONG_RAW_DATA_MESSAGE = "Wrong raw data";
-    public static final String PARSE_DOUBLE_ERROR_MESSAGE = "Parse double error";
-    public static final String NO_SUCH_DATA_MESSAGE = "No such data";
+    private static final String PARSE_DOUBLE_ERROR_MESSAGE = "Parse double error";
+    private static final String NO_SUCH_DATA_MESSAGE = "No such data";
 
     private final String RESPONSE;
 
     private MeteoTrafficDataService(IMeteoTrafficData meteoData) {
         checkMeteoData(meteoData);
-        RESPONSE = meteoData.getData();
+        RESPONSE = meteoData.getData().get();
     }
 
     private void checkMeteoData(IMeteoTrafficData meteoData) {
-        if(meteoData == null|| StringUtils.isBlank(meteoData.getData())){
+        if (meteoData == null || !meteoData.getData().isPresent()) {
             throw new IllegalArgumentException(WRONG_RAW_DATA_MESSAGE);
         }
     }
@@ -38,7 +38,7 @@ public class MeteoTrafficDataService implements IMeteoDataService {
     }
 
     public Double getTemp() {
-        String tempData=getStringFromResponseBetween(TEMP_OPEN, TEMP_CLOSE);
+        String tempData = getStringFromResponseBetween(TEMP_OPEN, TEMP_CLOSE);
         checkBlankAndDoubleParsing(tempData);
         return Double.parseDouble(tempData);
     }
@@ -64,15 +64,15 @@ public class MeteoTrafficDataService implements IMeteoDataService {
 
     private void checkBlankAndDoubleParsing(String tempData) {
         checkBlank(tempData);
-        try{
+        try {
             Double.parseDouble(tempData);
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException(PARSE_DOUBLE_ERROR_MESSAGE);
         }
     }
 
     private void checkBlank(String tempData) {
-        if(StringUtils.isBlank(tempData)){
+        if (StringUtils.isBlank(tempData)) {
             throw new IllegalArgumentException(NO_SUCH_DATA_MESSAGE);
         }
     }
