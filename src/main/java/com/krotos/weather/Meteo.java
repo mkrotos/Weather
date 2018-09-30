@@ -12,7 +12,6 @@ public class Meteo {
         System.out.println(meteoDataService.getRain());
         System.out.println(meteoDataService.getHumidity());
         System.out.println(meteoDataService.getWindVelocity());
-        System.out.println(meteoDataService.getFixedRain());
 
 
     }

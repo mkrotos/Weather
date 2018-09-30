@@ -42,10 +42,6 @@ public class MeteoTrafficDataService implements IMeteoDataService {
         return getStringFromResponseBetween(RAIN_OPEN, RAIN_CLOSE);
     }
 
-    public String getFixedRain(){
-        String rain=getRain();
-        return rain.replace("&oacute;","ó");
-    }
 
     public Double getWindVelocity() {
         return Double.parseDouble(getStringFromResponseBetween(WIND_VELOCITY_OPEN, WIND_VELOCITY_CLOSE));
