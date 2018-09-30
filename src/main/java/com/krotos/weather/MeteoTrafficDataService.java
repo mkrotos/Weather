@@ -12,19 +12,20 @@ public class MeteoTrafficDataService implements IMeteoDataService {
     private static final String RAIN_CLOSE = "</b><br>";
     private static final String WIND_VELOCITY_OPEN = "Prędkość wiatru: <b>";
     private static final String WIND_VELOCITY_CLOSE = " m/s</b><br>";
+    private static final String WRONG_RAW_DATA_MESSAGE = "Wrong raw data";
+    public static final String PARSE_DOUBLE_ERROR_MESSAGE = "Parse double error";
+    public static final String NO_SUCH_DATA_MESSAGE = "No such data";
 
-    private IMeteoTrafficData meteoData;
-    private String response;
+    private final String RESPONSE;
 
     private MeteoTrafficDataService(IMeteoTrafficData meteoData) {
-        this.meteoData = meteoData;
         checkMeteoData(meteoData);
-        response=this.meteoData.getData();
+        RESPONSE = meteoData.getData();
     }
 
     private void checkMeteoData(IMeteoTrafficData meteoData) {
         if(meteoData == null|| StringUtils.isBlank(meteoData.getData())){
-            throw new IllegalArgumentException("Wrong raw data");
+            throw new IllegalArgumentException(WRONG_RAW_DATA_MESSAGE);
         }
     }
 
@@ -32,25 +33,47 @@ public class MeteoTrafficDataService implements IMeteoDataService {
         return new MeteoTrafficDataService(meteoData);
     }
 
-
     private String getStringFromResponseBetween(String open, String close) {
-        return StringUtils.substringBetween(response, open, close);
+        return StringUtils.substringBetween(RESPONSE, open, close);
     }
 
     public Double getTemp() {
-        return Double.parseDouble(getStringFromResponseBetween(TEMP_OPEN, TEMP_CLOSE));
+        String tempData=getStringFromResponseBetween(TEMP_OPEN, TEMP_CLOSE);
+        checkBlankAndDoubleParsing(tempData);
+        return Double.parseDouble(tempData);
     }
 
     public Double getHumidity() {
-        return Double.parseDouble(getStringFromResponseBetween(HUMIDITY_OPEN, HUMIDITY_CLOSE));
+        String humidityData = getStringFromResponseBetween(HUMIDITY_OPEN, HUMIDITY_CLOSE);
+        checkBlankAndDoubleParsing(humidityData);
+        return Double.parseDouble(humidityData);
     }
 
     public String getRain() {
-        return getStringFromResponseBetween(RAIN_OPEN, RAIN_CLOSE);
+        String rainData = getStringFromResponseBetween(RAIN_OPEN, RAIN_CLOSE);
+        checkBlank(rainData);
+        return rainData;
     }
 
 
     public Double getWindVelocity() {
-        return Double.parseDouble(getStringFromResponseBetween(WIND_VELOCITY_OPEN, WIND_VELOCITY_CLOSE));
+        String windVelocityData = getStringFromResponseBetween(WIND_VELOCITY_OPEN, WIND_VELOCITY_CLOSE);
+        checkBlankAndDoubleParsing(windVelocityData);
+        return Double.parseDouble(windVelocityData);
+    }
+
+    private void checkBlankAndDoubleParsing(String tempData) {
+        checkBlank(tempData);
+        try{
+            Double.parseDouble(tempData);
+        }catch (NumberFormatException e){
+            throw new IllegalArgumentException(PARSE_DOUBLE_ERROR_MESSAGE);
+        }
+    }
+
+    private void checkBlank(String tempData) {
+        if(StringUtils.isBlank(tempData)){
+            throw new IllegalArgumentException(NO_SUCH_DATA_MESSAGE);
+        }
     }
 }

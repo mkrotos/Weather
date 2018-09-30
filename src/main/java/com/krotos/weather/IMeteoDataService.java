@@ -1,6 +1,6 @@
 package com.krotos.weather;
 
-public interface IMeteoDataService {
+interface IMeteoDataService {
     Double getTemp();
 
     Double getHumidity();

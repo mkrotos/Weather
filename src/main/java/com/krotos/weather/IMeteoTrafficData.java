@@ -1,5 +1,5 @@
 package com.krotos.weather;
 
-public interface IMeteoTrafficData {
+interface IMeteoTrafficData {
     String getData();
 }
